@@ -156,8 +156,8 @@ def product_edit(request, pk):
            # service.customer = service.id
            product.updated_date = timezone.now()
            product.save()
-           product = product.objects.filter(created_date__lte=timezone.now())
-           return render(request, 'crm/product_list.html', {'services': product})
+           product = Product.objects.filter(created_date__lte=timezone.now())
+           return render(request, 'crm/product_list.html', {'product': product})
    else:
        # print("else")
        form = ProductForm(instance=product)
@@ -165,7 +165,7 @@ def product_edit(request, pk):
 
 
 def product_delete(request, pk):
-   product = get_object_or_404(Customer, pk=pk)
+   product = get_object_or_404(Product, pk=pk)
    product.delete()
    product = Product.objects.filter(created_date__lte=timezone.now())
    return redirect('crm:product_list')
