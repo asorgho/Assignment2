@@ -102,10 +102,10 @@ def service_edit(request, pk):
 
 
 @login_required
-def service_delete(request):
-    def service_delete(request, pk):
+def service_delete(request,pk):
         service = get_object_or_404(Service, pk=pk)
         service.delete()
+        service = Service.objects.filter(created_date__lte=timezone.now())
         return redirect('crm:service_list')
 
 
@@ -167,4 +167,5 @@ def product_edit(request, pk):
 def product_delete(request, pk):
    product = get_object_or_404(Customer, pk=pk)
    product.delete()
+   product = Product.objects.filter(created_date__lte=timezone.now())
    return redirect('crm:product_list')
